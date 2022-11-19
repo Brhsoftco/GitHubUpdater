@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
 [assembly: AssemblyTitle("GitHubUpdater")]
-[assembly: AssemblyDescription("GitHub Release update module for .NET")]
+[assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("BRH Media (Baeleigh Harris)")]
+[assembly: AssemblyCompany("BRH Media")]
 [assembly: AssemblyProduct("GitHubUpdater")]
-[assembly: AssemblyCopyright("Copyright © BRH Media (Baeleigh Harris) 2020")]
+[assembly: AssemblyCopyright("Copyright © BRH Media 2020")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 
