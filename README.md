@@ -8,8 +8,12 @@ var client = new UpdateClient()
 {
     Author = "<Your GitHub Username",
     RepositoryName = "<Your Repo Name>",
-    CurrentInstalledVersion = version
+    CurrentInstalledVersion = version,
+    BaseUrl = "http://api.github.com/"
 };
+
+// Default BaseUrl is "http://api.github.com/". 
+// You don't have to give it a value unless you have special requirements
 
 // Start API call and update check.
 // If an update is available, the client will show a form
