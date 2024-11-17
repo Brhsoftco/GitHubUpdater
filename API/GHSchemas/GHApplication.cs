@@ -2,9 +2,9 @@
 
 // ReSharper disable InconsistentNaming
 
-namespace GitHubUpdater.API
+namespace GitHubUpdater.API.GHSchemas
 {
-    public class GHApplication
+    public class GHApplication : GHApiObject
     {
         [JsonPropertyName("id")]
         public int Id { get; set; } = 0;

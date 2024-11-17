@@ -3,7 +3,7 @@ using System.Text.Json.Serialization;
 
 // ReSharper disable InconsistentNaming
 
-namespace GitHubUpdater.API
+namespace GitHubUpdater.API.GHSchemas
 {
     public class GHApiObject
     {

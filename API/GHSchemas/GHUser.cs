@@ -2,20 +2,20 @@
 
 // ReSharper disable InconsistentNaming
 
-namespace GitHubUpdater.API
+namespace GitHubUpdater.API.GHSchemas
 {
-    public class GHUser
+    public class GHUser : GHApiObject
     {
         [JsonPropertyName("login")]
-        public string login { get; set; }
+        public string Login { get; set; }
 
         [JsonPropertyName("id")]
-        public int id { get; set; }
+        public int Id { get; set; }
 
         [JsonPropertyName("avatar_url")]
-        public string avatar_url { get; set; }
+        public string AvatarUrl { get; set; }
 
         [JsonPropertyName("gravatar_id")]
-        public string gravatar_id { get; set; }
+        public string GravatarId { get; set; }
     }
 }

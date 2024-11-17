@@ -3,9 +3,9 @@ using System.Text.Json.Serialization;
 
 // ReSharper disable InconsistentNaming
 
-namespace GitHubUpdater.API
+namespace GitHubUpdater.API.GHSchemas
 {
-    public class GHAsset
+    public class GHAsset : GHApiObject
     {
         [JsonPropertyName("id")]
         public int Id { get; set; } = 0;

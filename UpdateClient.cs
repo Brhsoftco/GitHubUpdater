@@ -1,14 +1,15 @@
 ﻿using GitHubUpdater.API;
+using GitHubUpdater.API.GHSchemas;
 using GitHubUpdater.Net;
 using GitHubUpdater.Security;
 using GitHubUpdater.UI;
+using GitHubUpdater.WaitWindow;
 using RestSharp;
 using System;
 using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Windows.Forms;
-using GitHubUpdater.WaitWindow;
 using UpdateChannel = GitHubUpdater.Enums.UpdateChannel;
 
 // ReSharper disable LocalizableElement
@@ -21,12 +22,14 @@ namespace GitHubUpdater
     {
         //user configurable options
         public string Author { get; set; } = "";
+
         public string RepositoryName { get; set; } = "";
         public bool DebugMode { get; set; } = false;
         public Version CurrentInstalledVersion { get; set; }
 
         //internal options (user does not need to and should not change these)
         private static string BaseUrl => "http://api.github.com/";
+
         internal string AllApiUrl => $"repos/{Author}/{RepositoryName}/releases";
         internal string LatestApiUrl => $"{AllApiUrl}/latest";
 
