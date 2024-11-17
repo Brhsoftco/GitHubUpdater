@@ -43,9 +43,6 @@
       <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.9.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
-    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="RestSharp, Version=112.1.0.0, Culture=neutral, PublicKeyToken=598062e77f915f75, processorArchitecture=MSIL">
       <HintPath>packages\RestSharp.112.1.0\lib\net471\RestSharp.dll</HintPath>
     </Reference>
@@ -85,10 +82,10 @@
     <Reference Include="System.Windows.Forms" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="API\Assets.cs" />
-    <Compile Include="API\Converter.cs" />
-    <Compile Include="API\User.cs" />
-    <Compile Include="API\Application.cs" />
+    <Compile Include="API\GHApiObject.cs" />
+    <Compile Include="API\GHAsset.cs" />
+    <Compile Include="API\GHUser.cs" />
+    <Compile Include="API\GHApplication.cs" />
     <Compile Include="API\UpdateResponse.cs" />
     <Compile Include="Display\Displayable.cs" />
     <Compile Include="Display\Html.cs" />

@@ -1,9 +1,9 @@
 ﻿using GitHubUpdater.Net.DownloadManager;
 using GitHubUpdater.Security;
-using Newtonsoft.Json;
 using System;
 using System.Globalization;
 using System.IO;
+using System.Text.Json;
 
 namespace GitHubUpdater
 {
@@ -17,8 +17,8 @@ namespace GitHubUpdater
         /// <returns></returns>
         public static string FormatJson(this string json)
         {
-            dynamic parsedJson = JsonConvert.DeserializeObject(json);
-            return JsonConvert.SerializeObject(parsedJson, Formatting.Indented);
+            using var jDoc = JsonDocument.Parse(json);
+            return JsonSerializer.Serialize(jDoc, new JsonSerializerOptions { WriteIndented = true });
         }
 
         /// <summary>

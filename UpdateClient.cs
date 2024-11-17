@@ -2,13 +2,13 @@
 using GitHubUpdater.Net;
 using GitHubUpdater.Security;
 using GitHubUpdater.UI;
-using Newtonsoft.Json;
 using RestSharp;
 using System;
 using System.IO;
+using System.Text.Json;
+using System.Text.Json.Serialization;
 using System.Windows.Forms;
 using GitHubUpdater.WaitWindow;
-using Application = GitHubUpdater.API.Application;
 using UpdateChannel = GitHubUpdater.Enums.UpdateChannel;
 
 // ReSharper disable LocalizableElement
@@ -17,7 +17,7 @@ using UpdateChannel = GitHubUpdater.Enums.UpdateChannel;
 
 namespace GitHubUpdater
 {
-    internal class UpdateClient
+    public class UpdateClient
     {
         //user configurable options
         public string Author { get; set; } = "";
@@ -163,14 +163,17 @@ namespace GitHubUpdater
         /// </summary>
         /// <param name="waitWindow"></param>
         /// <returns></returns>
-        public Application GetLatestStableRelease(bool waitWindow = true)
+        public GHApplication GetLatestStableRelease(bool waitWindow = true)
         {
-            Application data = null;
+            GHApplication data = null;
 
             try
             {
                 var api = GetUpdateInfo(LatestApiUrl, waitWindow);
-                data = JsonConvert.DeserializeObject<Application>(api, Converter.Settings);
+                data = JsonSerializer.Deserialize<GHApplication>(api, new JsonSerializerOptions
+                {
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+                });
             }
             catch (Exception ex)
             {
@@ -185,14 +188,14 @@ namespace GitHubUpdater
         /// </summary>
         /// <param name="waitWindow"></param>
         /// <returns></returns>
-        public Application GetLatestDevelopmentRelease(bool waitWindow = true)
+        public GHApplication GetLatestDevelopmentRelease(bool waitWindow = true)
         {
             try
             {
                 var currentReleasesList = GetAllReleases(waitWindow);
 
                 foreach (var r in currentReleasesList)
-                    if (r.prerelease)
+                    if (r.Prerelease)
                         return r;
             }
             catch (Exception ex)
@@ -209,14 +212,17 @@ namespace GitHubUpdater
         /// </summary>
         /// <param name="waitWindow"></param>
         /// <returns></returns>
-        public Application[] GetAllReleases(bool waitWindow = true)
+        public GHApplication[] GetAllReleases(bool waitWindow = true)
         {
-            Application[] data = null;
+            GHApplication[] data = null;
 
             try
             {
                 var api = GetUpdateInfo(AllApiUrl, waitWindow);
-                data = JsonConvert.DeserializeObject<Application[]>(api, Converter.Settings);
+                data = JsonSerializer.Deserialize<GHApplication[]>(api, new JsonSerializerOptions
+                {
+                    DefaultIgnoreCondition = JsonIgnoreCondition.WhenWritingNull
+                });
             }
             catch (Exception ex)
             {
@@ -270,9 +276,8 @@ namespace GitHubUpdater
                 return (string)GHUWaitWindow.Show(GetUpdateInfo, @"Contacting GitHub", resource);
 
             var client = GetRestClient();
-            var request = new RestRequest { Resource = resource };
+            var request = new RestRequest(resource);
             var response = client.Execute(request);
-
             var apiJson = response.Content;
 
             //log json (pretty-printed)

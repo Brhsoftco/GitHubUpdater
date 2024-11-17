@@ -16,7 +16,6 @@
 	<dependencies>
 		<dependency id="RestSharp" version="112.1.0"></dependency>
 		<dependency id="Markdig" version="0.38.0"></dependency>
-		<dependency id="Newtonsoft.Json" version="13.0.3"></dependency>
 		<dependency id="AltoHttp" version="1.5.2"></dependency>
 	</dependencies>
   </metadata>

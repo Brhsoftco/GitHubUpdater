@@ -48,14 +48,14 @@ namespace GitHubUpdater.UI
                 else
                 {
                     //Release ID is the update download folder
-                    var dir = $@"{Globals.UpdateRootDir}\{AppUpdate.UpdateData.id}";
+                    var dir = $@"{Globals.UpdateRootDir}\{AppUpdate.UpdateData.Id}";
 
                     //set global
                     Agent.UpdateDirectory = dir;
 
                     //GUI setup
-                    var title = AppUpdate.UpdateData.name;
-                    var changes = AppUpdate.UpdateData.body;
+                    var title = AppUpdate.UpdateData.Name;
+                    var changes = AppUpdate.UpdateData.Body;
                     var css = new Stylesheet().StoredText;
 
                     //setup the markdown HTML for the mini-browser
@@ -125,7 +125,7 @@ namespace GitHubUpdater.UI
         private void UpdatedVersionStatusUpdate()
         {
             //set updated version
-            lblUpdatedVersionValue.Text = AppUpdate.UpdateData.tag_name;
+            lblUpdatedVersionValue.Text = AppUpdate.UpdateData.TagName;
 
             //label style
             var text = @"";
@@ -177,7 +177,7 @@ namespace GitHubUpdater.UI
 
             //sum of all asset downloads denotes the total downloads counter
             => AppUpdate.UpdateData
-                .assets.Sum(a => a.download_count);
+                .Assets.Sum(a => a.DownloadCount);
 
         private void Download(bool closeForm = true)
         {
@@ -276,10 +276,10 @@ namespace GitHubUpdater.UI
             try
             {
                 //loop through each GitHub release asset
-                foreach (var a in AppUpdate.UpdateData.assets)
+                foreach (var a in AppUpdate.UpdateData.Assets)
                 {
                     //location of the unique folder
-                    var dirA = $@"{Agent.UpdateDirectory}\{a.id}";
+                    var dirA = $@"{Agent.UpdateDirectory}\{a.Id}";
 
                     //each asset has a separate directory inside the 'UpdateId' directory
                     if (!Directory.Exists(dirA))
@@ -295,13 +295,13 @@ namespace GitHubUpdater.UI
                     var j = new Job
                     {
                         //the asset URI to download
-                        DownloadUri = new Uri(a.browser_download_url),
+                        DownloadUri = new Uri(a.BrowserDownloadUrl),
 
                         //the path of the file to save the asset to
-                        DownloadPath = $@"{dirA}\{a.name}",
+                        DownloadPath = $@"{dirA}\{a.Name}",
 
                         //the byte-size of the asset
-                        DownloadSize = a.size
+                        DownloadSize = a.Size
                     };
 
                     //download and flush job to disk
