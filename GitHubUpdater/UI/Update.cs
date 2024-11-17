@@ -58,8 +58,6 @@ namespace GitHubUpdater.UI
                     var changes = AppUpdate.UpdateData.Body;
                     var css = new Stylesheet().StoredContent;
 
-                    MessageBox.Show(css);
-
                     //setup the markdown HTML for the mini-browser
                     var changesHtml = @"<h4>Changelog information is unavailable. Please ask the vendor for more information.</h4>";
                     lblUpdateTitle.Text = !string.IsNullOrEmpty(title) ? title : @"Update Available";
