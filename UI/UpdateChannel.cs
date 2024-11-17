@@ -15,6 +15,7 @@ namespace GitHubUpdater.UI
 
         internal static Enums.UpdateChannel ShowChannelSelector()
         {
+            //setup update selector
             var frm = new UpdateChannel();
             frm.ShowDialog();
 
@@ -24,7 +25,7 @@ namespace GitHubUpdater.UI
 
         private void BtnCancel_Click(object sender, EventArgs e)
         {
-            SelectedChannel = Enums.UpdateChannel.Unknown;
+            SelectedChannel = Enums.UpdateChannel.Cancelled;
             DialogResult = DialogResult.Cancel;
             Close();
         }

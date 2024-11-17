@@ -120,6 +120,10 @@ namespace GitHubUpdater
                             ? UI.UpdateChannel.ShowChannelSelector()
                             : UpdateChannel.Stable;
 
+                        //cancelled?
+                        if (channel == UpdateChannel.Cancelled)
+                            return;
+
                         //wait window isn't silent (it's a window after all), so it needs to be accounted for here
                         //so as to not show anything
                         var data = GetUpdateData(!silentCheck, channel);

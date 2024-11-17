@@ -18,6 +18,11 @@
         /// <summary>
         /// Returned if the user didn't select a channel, etc.
         /// </summary>
-        Unknown
+        Unknown,
+
+        /// <summary>
+        /// Returned if the user cancelled channel selection
+        /// </summary>
+        Cancelled
     }
 }
