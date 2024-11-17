@@ -10,6 +10,7 @@ using System.IO;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.Windows.Forms;
+using GitHubUpdater.Enums;
 using UpdateChannel = GitHubUpdater.Enums.UpdateChannel;
 
 // ReSharper disable LocalizableElement
@@ -24,7 +25,8 @@ namespace GitHubUpdater
         public string Author { get; set; } = "";
 
         public string RepositoryName { get; set; } = "";
-        public bool DebugMode { get; set; } = false;
+        public OperationModus Mode { get; set; } = OperationModus.Normal;
+
         public Version CurrentInstalledVersion { get; set; }
 
         //internal options (user does not need to and should not change these)
@@ -117,7 +119,7 @@ namespace GitHubUpdater
                     {
                         //if in debug mode, the user can select the preferred update channel,
                         //otherwise it'll always be the stable channel (Production Release).
-                        var channel = DebugMode
+                        var channel = Mode is OperationModus.ChannelSelector or OperationModus.DebugMode
                             ? UI.UpdateChannel.ShowChannelSelector()
                             : UpdateChannel.Stable;
 
@@ -168,7 +170,7 @@ namespace GitHubUpdater
                         if (data.Valid)
 
                             //debug mode shows the form regardless of being up-to-date
-                            if (!data.UpToDate || DebugMode)
+                            if (!data.UpToDate || Mode == OperationModus.DebugMode)
                             {
                                 ShowUpdateForm(data);
                             }
@@ -183,7 +185,7 @@ namespace GitHubUpdater
                             }
                         else
                             //the data we got wasn't valid and failed the checks; alert the user.
-                            MessageBox.Show(DebugMode
+                            MessageBox.Show(Mode is OperationModus.DebugMode or OperationModus.ChannelSelector
                                     ? "Update data was invalid; cannot process update information.\nDid you select a valid channel?"
                                     : "Update data was invalid; cannot process update information.",
                                 @"Update Error", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
@@ -343,7 +345,7 @@ namespace GitHubUpdater
             {
                 //check if the data is valid before trying to write it to a file,
                 //and only allow this function to run if in debug mode
-                if (!string.IsNullOrWhiteSpace(apiResponse) && DebugMode)
+                if (!string.IsNullOrWhiteSpace(apiResponse) && Mode == OperationModus.DebugMode)
                 {
                     //hash a new GUID for uniqueness
                     var uniqueString = MD5Helper.CalculateMd5Hash(Guid.NewGuid().ToString());

@@ -5,13 +5,13 @@ namespace GitHubUpdater.Display
 {
     internal class Displayable
     {
-        internal string StoredText { get; set; }
+        internal string StoredContent { get; set; }
         internal bool AutoLoad { get; set; } = true;
         internal bool AutoExport { get; set; } = true;
         internal string DefaultFileName { get; set; } = "";
         internal string DefaultFileContents { get; set; } = "";
 
-        internal bool PopulateFromDefault(bool bypassAutoExport = false)
+        internal string PopulateFromDefault(bool bypassAutoExport = false)
         {
             try
             {
@@ -19,18 +19,18 @@ namespace GitHubUpdater.Display
                 if (string.IsNullOrWhiteSpace(DefaultFileName)
                     || string.IsNullOrWhiteSpace(DefaultFileContents))
                 {
-                    return false;
+                    return null;
                 }
 
                 //set accordingly
-                StoredText = DefaultFileContents;
+                StoredContent = DefaultFileContents;
 
                 //export?
                 if (!AutoExport || bypassAutoExport)
-                    return true;
+                    return DefaultFileContents;
                 if (!File.Exists(DefaultFileName))
-                    File.WriteAllText(DefaultFileName, StoredText);
-                return true;
+                    File.WriteAllText(DefaultFileName, StoredContent);
+                return DefaultFileContents;
             }
             catch (Exception ex)
             {
@@ -39,10 +39,10 @@ namespace GitHubUpdater.Display
             }
 
             //default
-            return false;
+            return null;
         }
 
-        internal bool PopulateFromFile()
+        internal string PopulateFromFile()
         {
             try
             {
@@ -50,7 +50,7 @@ namespace GitHubUpdater.Display
                 if (string.IsNullOrWhiteSpace(DefaultFileName)
                     || string.IsNullOrWhiteSpace(DefaultFileContents))
                 {
-                    return false;
+                    return null;
                 }
 
                 //checks
@@ -60,10 +60,10 @@ namespace GitHubUpdater.Display
                     if (!string.IsNullOrWhiteSpace(readout))
                     {
                         //apply changes
-                        StoredText = readout;
+                        StoredContent = readout;
 
                         //success
-                        return true;
+                        return readout;
                     }
                 }
             }
@@ -74,10 +74,18 @@ namespace GitHubUpdater.Display
             }
 
             //default
-            return false;
+            return null;
         }
 
-        internal bool Populate()
-            => AutoLoad ? PopulateFromFile() : PopulateFromDefault();
+        internal string Populate()
+        {
+            if (!AutoLoad)
+                return PopulateFromDefault();
+            var filePopulate = PopulateFromFile();
+            return !string.IsNullOrWhiteSpace(filePopulate)
+                ? filePopulate
+                : PopulateFromDefault();
+
+        }
     }
 }

@@ -1,4 +1,5 @@
 ﻿using System.Reflection;
+using GitHubUpdater.Enums;
 
 namespace GitHubUpdater.Tester
 {
@@ -10,9 +11,9 @@ namespace GitHubUpdater.Tester
             var updater = new UpdateClient
             {
                 Author = "brh-media",
-                RepositoryName = "SL5Console-releases",
+                RepositoryName = "plexdl",
                 CurrentInstalledVersion = version,
-                DebugMode = true
+                Mode = OperationModus.ChannelSelector
             };
 
             updater.CheckIfLatest(silentCheck);

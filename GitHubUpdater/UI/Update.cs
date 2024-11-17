@@ -56,7 +56,9 @@ namespace GitHubUpdater.UI
                     //GUI setup
                     var title = AppUpdate.UpdateData.Name;
                     var changes = AppUpdate.UpdateData.Body;
-                    var css = new Stylesheet().StoredText;
+                    var css = new Stylesheet().StoredContent;
+
+                    MessageBox.Show(css);
 
                     //setup the markdown HTML for the mini-browser
                     var changesHtml = @"<h4>Changelog information is unavailable. Please ask the vendor for more information.</h4>";
@@ -65,7 +67,7 @@ namespace GitHubUpdater.UI
                     if (!string.IsNullOrEmpty(changes))
                         changesHtml = Markdown.ToHtml(changes);
 
-                    var documentHtml = string.Format(new Html().StoredText, css, changesHtml, NumberDownloads());
+                    var documentHtml = string.Format(new Html().StoredContent, css, changesHtml, NumberDownloads());
 
                     //apply decoded markdown-HTML
                     browserChanges.DocumentText = documentHtml;

@@ -91,6 +91,7 @@
     <Compile Include="Display\Html.cs" />
     <Compile Include="Display\Stylesheet.cs" />
     <Compile Include="Enums\DownloadStatus.cs" />
+    <Compile Include="Enums\OperationModus.cs" />
     <Compile Include="Enums\UpdateChannel.cs" />
     <Compile Include="Enums\VersionStatus.cs" />
     <Compile Include="Extensions.cs" />
