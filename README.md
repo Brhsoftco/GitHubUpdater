@@ -11,7 +11,9 @@ var client = new UpdateClient()
     Author = "<Your GitHub Username",
     RepositoryName = "<Your Repo Name>",
     CurrentInstalledVersion = version,
-	DebugMode = true
+	
+	//this is the default value; see below for more options
+	Mode = OperationModus.Normal
 };
 
 // Start API call and update check.
@@ -21,6 +23,7 @@ var client = new UpdateClient()
 // they are up-to-date.
 client.CheckIfLatest();
 ```
-If set to true, `DebugMode` enables `Update Channel` selection; in this mode, the developer is able to check for releases that are tagged as a `Pre-release` by GitHub.
-
-You may find this mode useful if your application permits 'Unstable' build downloads.
+You can set `Mode` to one of three options:
+- `OperationModus.DebugMode` allows for logging API outputs, enabling the channel selector and always showing the `Update Available` form
+- `OperationModus.ChannelSelector` enables pulling from either only `Pre-release` builds or only `Stable` builds via the use of a selection form; otherwise, the behaviour is the same as `Normal`
+- `OperationModus.Normal` only pulls from the `Stable` channel and will only show the `Update Available` form if a later version is available
