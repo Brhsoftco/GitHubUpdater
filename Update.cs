@@ -1,6 +1,6 @@
-﻿using Markdig;
-using PlexDL.AltoHTTP.Classes;
-using PlexDL.WaitWindow;
+﻿using AltoHttp;
+using GitHubUpdater.WaitWindow;
+using Markdig;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -9,6 +9,8 @@ using System.IO;
 using System.Linq;
 using System.Windows.Forms;
 using Application = GitHubUpdater.API.Application;
+
+// ReSharper disable LocalizableElement
 
 namespace GitHubUpdater
 {
@@ -105,7 +107,7 @@ namespace GitHubUpdater
         {
             try
             {
-                var dir = (string)WaitWindow.Show(DownloadWorker, @"Downloading update file(s)");
+                var dir = (string)GHUWaitWindow.Show(DownloadWorker, @"Downloading update file(s)");
                 var msg = MessageBox.Show(@"Done! Open download location?", @"Question",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Information);
                 if (msg == DialogResult.Yes)
@@ -119,7 +121,7 @@ namespace GitHubUpdater
             }
         }
 
-        private void DownloadWorker(object sender, WaitWindowEventArgs e)
+        private void DownloadWorker(object sender, GHUWaitWindowEventArgs e)
         {
             var dir = $@"update_files\{UpdateData.id}";
             var dl = new List<HttpDownloader>();
@@ -136,7 +138,7 @@ namespace GitHubUpdater
 
                 var engine = new HttpDownloader(uri, file);
                 dl.Add(engine);
-                dl[dl.IndexOf(engine)].StartAsync();
+                dl[dl.IndexOf(engine)].Start();
             }
 
             e.Result = dir;

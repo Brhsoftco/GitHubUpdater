@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json;
-using PlexDL.WaitWindow;
 using RestSharp;
 using System;
 using System.Windows.Forms;
+using GitHubUpdater.WaitWindow;
 using Application = GitHubUpdater.API.Application;
+
+// ReSharper disable LocalizableElement
 
 namespace GitHubUpdater
 {
@@ -12,7 +14,7 @@ namespace GitHubUpdater
         public string Author { get; set; } = "";
         public string RepositoryName { get; set; } = "";
         public string ApiUrl => $"repos/{Author}/{RepositoryName}/releases/latest";
-        private string BaseUrl => "http://api.github.com/";
+        private static string BaseUrl => "http://api.github.com/";
         public bool WaitWindowWorker => true;
         public Version CurrentInstalledVersion { get; set; }
 
@@ -72,18 +74,12 @@ namespace GitHubUpdater
         }
 
         protected RestClient GetRestClient()
-        {
-            var client = new RestClient
-            {
-                BaseUrl = new Uri(BaseUrl)
-            };
-            return client;
-        }
+            => new RestClient(BaseUrl);
 
         private string GetUpdateInfo()
         {
             if (WaitWindowWorker)
-                return (string)WaitWindow.Show(GetUpdateInfoWorker, @"Contacting GitHub");
+                return (string)GHUWaitWindow.Show(GetUpdateInfoWorker, @"Contacting GitHub");
             return ApiContact();
         }
 
@@ -92,7 +88,7 @@ namespace GitHubUpdater
             return BaseUrl;
         }
 
-        private void GetUpdateInfoWorker(object sender, WaitWindowEventArgs e)
+        private void GetUpdateInfoWorker(object sender, GHUWaitWindowEventArgs e)
         {
             e.Result = ApiContact();
         }
@@ -100,8 +96,6 @@ namespace GitHubUpdater
         private string ApiContact()
         {
             var client = GetRestClient();
-            client.UseJson(); //ensure the client uses JSON
-
             var request = new RestRequest { Resource = ApiUrl };
             var response = client.Execute(request);
             return response.Content;

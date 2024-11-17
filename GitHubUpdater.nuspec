@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>1.7.4</version>
+    <title>GitHubUpdater</title>
+    <authors>BRH Media</authors>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <license type="expression">MIT</license>
+    <projectUrl>https://github.com/brhsoftco/GitHubUpdater</projectUrl>
+    <description>Provides updater functionality purely through GitHub releases; born out of PlexDL and reworked slightly to be independent of that project.</description>
+    <releaseNotes>Initial release</releaseNotes>
+    <copyright>Copyright (c) BRH Media (Baeleigh Harris) 2024</copyright>
+    <tags>PlexDL ghu GitHub json zip security updater updates update download downloader checker</tags>
+	<dependencies>
+		<dependency id="RestSharp" version="112.1.0"></dependency>
+		<dependency id="Markdig" version="0.38.0"></dependency>
+		<dependency id="Newtonsoft.Json" version="13.0.3"></dependency>
+		<dependency id="AltoHttp" version="1.5.2"></dependency>
+	</dependencies>
+  </metadata>
+</package>
