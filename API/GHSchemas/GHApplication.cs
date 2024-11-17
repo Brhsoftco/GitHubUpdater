@@ -6,6 +6,9 @@ namespace GitHubUpdater.API.GHSchemas
 {
     public class GHApplication : GHApiObject
     {
+        [JsonIgnore]
+        public bool NotFound { get; set; } = false;
+
         [JsonPropertyName("id")]
         public int Id { get; set; } = 0;
 

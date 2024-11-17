@@ -74,6 +74,7 @@ namespace GitHubUpdater
                     UpdateChannel.Stable => GetLatestStableRelease(waitWindow),
                     UpdateChannel.Development => GetLatestDevelopmentRelease(waitWindow),
                     UpdateChannel.Unknown => null,
+                    UpdateChannel.Cancelled => null,
                     _ => throw new ArgumentOutOfRangeException(nameof(channel), channel, null)
                 };
 
@@ -127,6 +128,41 @@ namespace GitHubUpdater
                         //wait window isn't silent (it's a window after all), so it needs to be accounted for here
                         //so as to not show anything
                         var data = GetUpdateData(!silentCheck, channel);
+
+                        //status code provided?
+                        if (!string.IsNullOrWhiteSpace(data.UpdateData?.StatusCode))
+                        {
+                            //error...?
+                            if (int.TryParse(data.UpdateData.StatusCode, out var statusCode))
+                            {
+                                if (statusCode == 404)
+                                {
+                                    MessageBox.Show(
+                                        $"You're running the latest version!\n\nYour version: {data.CurrentVersion}" +
+                                        $"\nLatest release: {data.UpdatedVersion} ({data.Channel} Channel)", @"Message",
+                                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                                }
+                                else
+                                {
+                                    if (statusCode >= 400)
+                                        MessageBox.Show(data.UpdateData.Message ?? "A web error has occurred in the GitHub API", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                                }
+
+                                //if a HTTP status code is set, it means the API did not return a success result (most likely)
+                                return;
+                            }
+                        }
+
+                        //did anything even come through?
+                        if (data.UpdateData?.NotFound == true)
+                        {
+                            //nothing found in the API; by default, the user is running the latest
+                            MessageBox.Show(
+                                $"You're running the latest version!\n\nYour version: {data.CurrentVersion}" +
+                                $"\nLatest release: {data.UpdatedVersion} ({data.Channel} Channel)", @"Message",
+                                MessageBoxButtons.OK, MessageBoxIcon.Information);
+                            return;
+                        }
 
                         //did the request succeed and give us good data?
                         if (data.Valid)
@@ -211,7 +247,10 @@ namespace GitHubUpdater
             }
 
             //default
-            return null;
+            return new GHApplication
+            {
+                NotFound = true
+            };
         }
 
         /// <summary>

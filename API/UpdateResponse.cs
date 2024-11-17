@@ -32,7 +32,9 @@ namespace GitHubUpdater.API
         /// </summary>
         public Version UpdatedVersion =>
             UpdateData != null
-            ? new Version(UpdateData.TagName.TrimStart('v').ToValidVersionString())
+            ? !string.IsNullOrWhiteSpace(UpdateData.TagName)
+                ? new Version(UpdateData.TagName.TrimStart('v').ToValidVersionString())
+                : null
             : null;
 
         /// <summary>
