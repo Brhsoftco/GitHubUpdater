@@ -3,25 +3,25 @@ using System.Collections.Generic;
 
 namespace GitHubUpdater.API
 {
-    public class Application
+    internal class Application
     {
-        public string url { get; set; }
-        public string assets_url { get; set; }
-        public string upload_url { get; set; }
-        public string html_url { get; set; }
-        public int id { get; set; }
-        public string node_id { get; set; }
-        public string tag_name { get; set; }
-        public string target_commitish { get; set; }
-        public string name { get; set; }
-        public bool draft { get; set; }
-        public Author author { get; set; }
-        public bool prerelease { get; set; }
-        public DateTime created_at { get; set; }
-        public DateTime published_at { get; set; }
-        public List<Assets> assets { get; set; }
-        public string tarball_url { get; set; }
-        public string zipball_url { get; set; }
-        public string body { get; set; }
+        internal string url { get; set; }
+        internal string assets_url { get; set; }
+        internal string upload_url { get; set; }
+        internal string html_url { get; set; }
+        internal int id { get; set; }
+        internal string node_id { get; set; }
+        internal string tag_name { get; set; }
+        internal string target_commitish { get; set; }
+        internal string name { get; set; }
+        internal bool draft { get; set; }
+        internal User author { get; set; }
+        internal bool prerelease { get; set; }
+        internal DateTime created_at { get; set; }
+        internal DateTime published_at { get; set; }
+        internal List<Assets> assets { get; set; }
+        internal string tarball_url { get; set; }
+        internal string zipball_url { get; set; }
+        internal string body { get; set; }
     }
 }

@@ -2,20 +2,20 @@
 
 namespace GitHubUpdater.API
 {
-    public class Assets
+    internal class Assets
     {
-        public string url { get; set; }
-        public int id { get; set; }
-        public string node_id { get; set; }
-        public string name { get; set; }
-        public string label { get; set; }
-        public Uploader uploader { get; set; }
-        public string content_type { get; set; }
-        public string state { get; set; }
-        public int size { get; set; }
-        public int download_count { get; set; }
-        public DateTime created_at { get; set; }
-        public DateTime updated_at { get; set; }
-        public string browser_download_url { get; set; }
+        internal string url { get; set; }
+        internal int id { get; set; }
+        internal string node_id { get; set; }
+        internal string name { get; set; }
+        internal string label { get; set; }
+        internal User uploader { get; set; }
+        internal string content_type { get; set; }
+        internal string state { get; set; }
+        internal int size { get; set; }
+        internal int download_count { get; set; }
+        internal DateTime created_at { get; set; }
+        internal DateTime updated_at { get; set; }
+        internal string browser_download_url { get; set; }
     }
 }

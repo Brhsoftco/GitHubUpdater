@@ -21,6 +21,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +30,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <LangVersion>latest</LangVersion>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="AltoHttp, Version=1.0.7945.3063, Culture=neutral, processorArchitecture=MSIL">
@@ -40,6 +42,7 @@
     <Reference Include="Microsoft.Bcl.AsyncInterfaces, Version=9.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
       <HintPath>packages\Microsoft.Bcl.AsyncInterfaces.9.0.0\lib\net462\Microsoft.Bcl.AsyncInterfaces.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.CSharp" />
     <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
@@ -83,17 +86,42 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="API\Assets.cs" />
-    <Compile Include="API\Author.cs" />
+    <Compile Include="API\Converter.cs" />
+    <Compile Include="API\User.cs" />
     <Compile Include="API\Application.cs" />
-    <Compile Include="API\Uploader.cs" />
-    <Compile Include="Update.cs">
+    <Compile Include="API\UpdateResponse.cs" />
+    <Compile Include="Display\Displayable.cs" />
+    <Compile Include="Display\Html.cs" />
+    <Compile Include="Display\Stylesheet.cs" />
+    <Compile Include="Enums\DownloadStatus.cs" />
+    <Compile Include="Enums\UpdateChannel.cs" />
+    <Compile Include="Enums\VersionStatus.cs" />
+    <Compile Include="Extensions.cs" />
+    <Compile Include="Globals.cs" />
+    <Compile Include="Net\DownloadManager\Agent.cs" />
+    <Compile Include="Net\DownloadManager\Job.cs" />
+    <Compile Include="Net\Internet.cs" />
+    <Compile Include="Net\NetGlobals.cs" />
+    <Compile Include="Net\ResourceGrab.cs" />
+    <Compile Include="Properties\Resources.Designer.cs">
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Security\MD5Helper.cs" />
+    <Compile Include="UI\Update.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Update.Designer.cs">
+    <Compile Include="UI\Update.Designer.cs">
       <DependentUpon>Update.cs</DependentUpon>
+    </Compile>
+    <Compile Include="UI\UpdateChannel.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="UI\UpdateChannel.Designer.cs">
+      <DependentUpon>UpdateChannel.cs</DependentUpon>
     </Compile>
     <Compile Include="UpdateClient.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="VersionVerify.cs" />
     <Compile Include="WaitWindow\GHUWaitWindow.cs" />
     <Compile Include="WaitWindow\GHUWaitWindowEventArgs.cs" />
     <Compile Include="WaitWindow\UI\GHUWaitWindowGUI.cs">
@@ -104,8 +132,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Update.resx">
+    <EmbeddedResource Include="Properties\Resources.resx" />
+    <EmbeddedResource Include="UI\Update.resx">
       <DependentUpon>Update.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="UI\UpdateChannel.resx">
+      <DependentUpon>UpdateChannel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="WaitWindow\UI\GHUWaitWindowGUI.resx">
       <DependentUpon>GHUWaitWindowGUI.cs</DependentUpon>
